@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="6dp"
+    android:layout_marginRight="6dp"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp"
+    card_view:cardCornerRadius="6dp"
+    card_view:cardElevation="3dp"
+    card_view:cardPreventCornerOverlap="true"
+    card_view:cardUseCompatPadding="false">
+
+    <LinearLayout
+        android:minHeight="10dp"
+        android:background="@drawable/card_bg1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:orientation="horizontal"
+        android:padding="0dp">
+
+        <RelativeLayout
+            android:paddingTop="@dimen/list_top_padding"
+            android:paddingBottom="@dimen/list_top_padding"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:gravity="top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.CardView
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                card_view:cardCornerRadius="8dp"
+                card_view:cardElevation="0dp"
+                card_view:cardPreventCornerOverlap="true"
+                card_view:cardUseCompatPadding="false">
+                <RelativeLayout
+                    android:background="@drawable/card_icon_bg1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/ic_logo"
+                        android:src="@drawable/bit3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingTop="@dimen/list_top_padding"
+            android:paddingBottom="@dimen/list_top_padding"
+            android:paddingLeft="0dp"
+            android:paddingRight="4dp"
+            android:gravity="top"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_sym"
+                android:text="BTC"
+                android:textSize="14sp"
+                android:textColor="#b0b5c3"
+                android:fontFamily="@font/av_regular"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_price"
+                android:text="$ 644.54"
+                android:textSize="10sp"
+                android:textColor="#6c7798"
+                android:fontFamily="@font/av_regular"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingTop="@dimen/list_top_padding"
+            android:paddingBottom="@dimen/list_top_padding"
+            android:paddingLeft="0dp"
+            android:paddingRight="4dp"
+            android:gravity="top"
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_cap"
+                android:text="$1,454.4"
+                android:textSize="14sp"
+                android:textColor="#b0b5c3"
+                android:fontFamily="@font/av_bold"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_supply"
+                android:text="4,555 coin"
+                android:textSize="10sp"
+                android:textColor="#6c7798"
+                android:fontFamily="@font/av_regular"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:paddingTop="@dimen/list_top_padding"
+            android:paddingBottom="@dimen/list_top_padding"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <!--<TableLayout
+                android:stretchColumns=""
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:id="@+id/tv_1h"
+                        android:text="1h |"
+                        android:textSize="10sp"
+                        android:textColor="#6c7798"
+                        android:fontFamily="@font/av_regular"
+                        android:ellipsize="end"
+                        android:maxLines="1"/>
+                    <View
+                        android:background="@color/colorAccent"
+                        android:layout_height="10dp"
+                        android:layout_width="2dp"/>
+                    <TextView
+                        android:id="@+id/tv_1h_d"
+                        android:text="+22"
+                        android:textSize="10sp"
+                        android:textColor="#6c7798"
+                        android:fontFamily="@font/av_regular"
+                        android:ellipsize="end"
+                        android:maxLines="1" />
+                </TableRow>
+            </TableLayout>-->
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
