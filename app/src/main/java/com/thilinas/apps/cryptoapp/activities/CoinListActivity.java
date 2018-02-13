@@ -1,12 +1,18 @@
 package com.thilinas.apps.cryptoapp.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.formats.NativeAd;
+import com.google.android.gms.ads.formats.NativeAppInstallAd;
+import com.google.android.gms.ads.formats.NativeContentAd;
 import com.thilinas.apps.cryptoapp.R;
 import com.thilinas.apps.cryptoapp.adapters.CoinListAdapter;
 import com.thilinas.apps.cryptoapp.model.Crypto;
@@ -28,20 +34,28 @@ import retrofit2.Response;
 
 public class CoinListActivity extends AppCompatActivity {
 
-    private ArrayList<Crypto> coins;
+    private ArrayList<Object> coins;
     private RecyclerView recyclerView;
     private CoinListAdapter mAdapter;
 
+    // The number of native ads to load and display.
+    public static final int NUMBER_OF_ADS = 5;
+
+    // List of native ads that have been successfully loaded.
+    private List<NativeAd> mNativeAds = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coin_list);
         initViews();
+        coins = new ArrayList<>();
         prepareList();
+
       //  updateList();  // normal api call
         getDetails(50); // cachebale api call
-        getGlobalData();
+        //getGlobalData();
+        loadNativeAd();
     }
 
     private void initViews(){
@@ -49,7 +63,7 @@ public class CoinListActivity extends AppCompatActivity {
     }
 
     private void prepareList() {
-        coins = new ArrayList<>();
+
         mAdapter = new CoinListAdapter(coins);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -232,5 +246,64 @@ public class CoinListActivity extends AppCompatActivity {
 
         coins.addAll((ArrayList) list);
         mAdapter.notifyDataSetChanged();
+    }
+
+
+    private void insertAdsInMenuItems() {
+        if (mNativeAds.size() <= 0) {
+            return;
+        }
+
+        int offset = (coins.size() / mNativeAds.size()) + 1;
+        int index = 0;
+        for (NativeAd ad : mNativeAds) {
+            coins.add(index, ad);
+            index = index + offset;
+        }
+
+    }
+
+    private void loadNativeAd(final int adLoadCount) {
+
+        if (adLoadCount >= NUMBER_OF_ADS) {
+            insertAdsInMenuItems();
+            return;
+        }
+
+        AdLoader.Builder builder = new AdLoader.Builder(this, getString(R.string.ad_unit_id));
+        AdLoader adLoader = builder.forAppInstallAd(new NativeAppInstallAd.OnAppInstallAdLoadedListener() {
+            @Override
+            public void onAppInstallAdLoaded(NativeAppInstallAd ad) {
+                // An app install ad loaded successfully, call this method again to
+                // load the next ad in the items list.
+                mNativeAds.add(ad);
+                loadNativeAd(adLoadCount + 1);
+
+            }
+        }).forContentAd(new NativeContentAd.OnContentAdLoadedListener() {
+            @Override
+            public void onContentAdLoaded(NativeContentAd ad) {
+                // A content ad loaded successfully, call this method again to
+                // load the next ad in the items list.
+                mNativeAds.add(ad);
+                loadNativeAd(adLoadCount + 1);
+            }
+        }).withAdListener(new AdListener() {
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // A native ad failed to load. Call this method again to load
+                // the next ad in the items list.
+                Log.e("MainActivity", "The previous native ad failed to load. Attempting to" +
+                        " load another.");
+                loadNativeAd(adLoadCount + 1);
+            }
+        }).build();
+
+        // Load the Native Express ad.
+        adLoader.loadAd(new AdRequest.Builder().addTestDevice("D864126DC6A44D8DD370BEEC3464A99C").build());
+    }
+
+    private void loadNativeAd() {
+        loadNativeAd(0);
     }
 }
